@@ -1,8 +1,4 @@
-//Wall-E v3.1
-//v1.0 Line following with a lot of bugs
-//v2.0 Refined junction decision making. Takes correct turns
-//v3.0 Refined code and removed distance measurement to improve performance. Much smoother traveling. 
-//v3.1 Added an aditional check to improve junction path detection which was missed due to speed after v3.0
+//Maze-E v3.1
 
 #pragma region Definitions
 #define GuideL 8 //Left Guide IR
