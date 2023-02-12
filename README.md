@@ -1,7 +1,8 @@
 # Maze-E | The Maze Solving Robot 🤖
-An Arduino based two wheeled robot that follows a line and also avoids dead ends to solve a maze. <br>
-Full explanation and reasons behind various design choices (eg: why 2 wheels and not 4) are explained below. <br>
-p.s. I named it after Wall-E :)
+<img align = "left" src="https://user-images.githubusercontent.com/24956953/218305250-4088d624-5d7e-4277-a687-449090a5087a.jpeg" width="300" />
+An Arduino based two wheeled robot that follows a line using IR Sensors and also avoids dead ends to solve a maze.<br>
+Full explanation and reasons behind various design choices (eg: why 2 wheels and not 4) are explained below.<br>
+p.s. I named it after Wall-E :)<br><br><br><br><br><br>
 
 https://user-images.githubusercontent.com/24956953/218301083-9bb2f885-cff9-4507-8e3a-912ace56658b.mp4
 
