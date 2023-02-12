@@ -1,45 +1,42 @@
 //Maze-E v3.1
 
-#pragma region Definitions
+//Define pin outputs
 #define GuideL 8 //Left Guide IR
 #define GuideR 11 //Right Guide IR
 #define IRR 7 //Far Right IR
 #define IRC 6 //Center IR
 #define IRL 5 //Far Left IR
-
 #define StartButton 1
-
-//Left Motor
+//Left Motor pins
 #define MotorL_F A3
 #define MotorL_R A2
 #define ENA 9 //Enabling and Speed Control
-#define LeftSpeed 90
 #define LeftSteps 3 //LM393 Optical Sensor
-
-//Right Motor
+//Right Motor pins
 #define MotorR_R 13
 #define MotorR_F 12
 #define ENB 10 //Enabling and Speed Control
-#define RightSpeed 90
 #define RightSteps 2 //LM393 Optical Sensor
-#pragma endregion
 
-//step counter
-volatile int Lcount = 0;
-volatile int Rcount = 0;
+//constant values
+#define LeftSpeed 90
+#define RightSpeed 90
+
+//variables
 int l, c, r, gl, gr; //store sensor readings
 int buttonState = 0;
-int dist, prevdist;
-unsigned long duration;
 bool isleft = false;
 bool isright = false;
 bool isforward = false;
 bool check;
-const long junction_interval = 1000;
-unsigned long previousMillis = 0;
+
+//step counter
+volatile int Lcount = 0;
+volatile int Rcount = 0;
+
 
 void setup() {
-  #pragma region pinModes
+
   pinMode(GuideL, INPUT);
   pinMode(GuideR, INPUT);
   pinMode(IRL, INPUT);
@@ -57,7 +54,7 @@ void setup() {
   pinMode(RightSteps, INPUT_PULLUP);
 
   pinMode(StartButton, INPUT_PULLUP);
-  #pragma endregion
+
 
   analogWrite(ENA, LeftSpeed);
   analogWrite(ENB, RightSpeed);
@@ -101,13 +98,6 @@ void loop() {
   else if((r == 1 || l == 1) && c == 1 && check == true) //junction
   {
     stopBot(); //stop bot when far left or right sensors detect a path
-
-    // if(millis() - previousMillis < junction_interval) //make sure it's not a misalignment
-    // {
-    //   buzz(7);
-    //   align(); 
-    //   return;
-    // }
 
     check = false;
 
@@ -248,3 +238,15 @@ void holdForPush()
     }
   }
 }
+
+bool nopath()
+{
+  if(digitalRead(IRL) == 0 && digitalRead(GuideL) == 0 && digitalRead(IRC) == 0 && digitalRead(GuideR) == 0 && digitalRead(IRR) == 0)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}  
