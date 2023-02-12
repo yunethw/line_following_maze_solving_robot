@@ -3,7 +3,6 @@
 //v2.0 Refined junction decision making. Takes correct turns
 //v3.0 Refined code and removed distance measurement to improve performance. Much smoother traveling. 
 //v3.1 Added an aditional check to improve junction path detection which was missed due to speed after v3.0
-#include <LiquidCrystal_I2C.h>
 
 #pragma region Definitions
 #define GuideL 8 //Left Guide IR
@@ -12,10 +11,6 @@
 #define IRC 6 //Center IR
 #define IRL 5 //Far Left IR
 
-#define echopin A1 //Ultrasonic echo
-#define trigpin A0 //Ultrasonic trigger
-
-#define BuzzerPin 4
 #define StartButton 1
 
 //Left Motor
@@ -47,49 +42,6 @@ bool check;
 const long junction_interval = 1000;
 unsigned long previousMillis = 0;
 
-LiquidCrystal_I2C lcd(0x27, 16, 2);
-
-//custom characters for LCD
-#pragma region Custom Characters
-byte arrow[8] =
-{
-0b00100,
-0b01110,
-0b10101,
-0b00100,
-0b00100,
-0b00100,
-0b00100,
-0b00100
-};
-
-
-byte arrowL[8] =
-{
-0b00001,
-0b00011,
-0b00110,
-0b01100,
-0b11000,
-0b10000,
-0b10000,
-0b00000
-};
-
-
-byte arrowR[8] =
-{
-0b10000,
-0b11000,
-0b01100,
-0b00110,
-0b00011,
-0b00001,
-0b00001,
-0b00000
-};
-#pragma endregion
-
 void setup() {
   #pragma region pinModes
   pinMode(GuideL, INPUT);
@@ -108,10 +60,6 @@ void setup() {
   pinMode(LeftSteps, INPUT_PULLUP);
   pinMode(RightSteps, INPUT_PULLUP);
 
-  pinMode(echopin, INPUT);
-  pinMode(trigpin, OUTPUT);
-
-  pinMode(BuzzerPin, OUTPUT);
   pinMode(StartButton, INPUT_PULLUP);
   #pragma endregion
 
@@ -123,16 +71,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(LeftSteps), LISR, RISING);
   attachInterrupt(digitalPinToInterrupt(RightSteps), RISR, RISING);
 
-  lcd.init();
-  lcd.createChar(0, arrow);
-  lcd.createChar(1, arrowL);
-  lcd.createChar(2, arrowR);
-
-  lcd.clear();
-  lcd.backlight();
-  lcdStartUp();
-  holdForPush(); //wait for button press
-  lcdBegin();
+  holdForPush(); //wait for push button press
 }
 
 void loop() {
@@ -175,7 +114,6 @@ void loop() {
     // }
 
     check = false;
-    buzz(3);
 
     //check if both left and right are available
     if(digitalRead(IRL) == 1){isleft = true;}
@@ -214,17 +152,14 @@ void loop() {
       delay(500);
       if(nopath()) //if no path is detected nudge further
       {
-        buzz(2);
         leftNudge(3);
         delay(300);
         if(nopath())
         {
-          buzz(2);
           leftNudge(3);
           delay(300);
           if(nopath())
           {
-            buzz(2);
             rightNudge(15);
           }
         }
@@ -252,17 +187,14 @@ void loop() {
       delay(500);
       if(nopath()) //if no path is detected nudge further
       {
-        buzz(2);
         rightNudge(3);
         delay(300);
         if(nopath())
         {
-          buzz(2);
           rightNudge(3);
           delay(30);
           if(nopath())
           {
-            buzz(2);
             leftNudge(15);
           }
         }
@@ -278,7 +210,6 @@ void loop() {
     else
     {
       //nopath();
-      buzz(6);
     }
   }
   else if(c == 1 && check == false && (r == 1 || l == 1)) //major aligning 
@@ -297,7 +228,6 @@ void loop() {
   {
     stopBot();
     delay(1000);
-    buzz(4);
     uTurn();
     delay(500);
     if(nopath()) //to make sure line wasn't missed

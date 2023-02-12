@@ -16,3 +16,5 @@ Components Used
 4. 5 IR sensors (sensor placement explained below)
 5. 18650 3.7v batteries (2 is sufficient but 3 is optimal)
 6. 18650 Battery holder 
+7. Push button (to control start)
+8. Switch (to turn on/off power)
