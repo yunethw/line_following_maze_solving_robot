@@ -1,14 +1,16 @@
 # Maze-E | The Maze Solving Robot 🤖
-<img align = "left" src="https://user-images.githubusercontent.com/24956953/218305250-4088d624-5d7e-4277-a687-449090a5087a.jpeg" width="300" />
+<img align = "left" src="https://user-images.githubusercontent.com/24956953/218305250-4088d624-5d7e-4277-a687-449090a5087a.jpeg" width="320" />
 An Arduino based two wheeled robot that follows a line and also avoids dead ends to solve a maze.
-Sensors and modules used:
-- Arduino Uno
-- L298N Motor Driver
-- IR sensor module
-- LM393 with Optical Sensor
+Sensors and modules used:<br>
+<b>
+- Arduino Uno<br>
+- L298N Motor Driver<br>
+- IR sensor module<br>
+- LM393 with Optical Sensor <br>
+</b>
 <br>
-Full explanation and reasons behind various design choices (eg: why 2 wheels and not 4) are explained below.<br>
-P.s. I named it after Wall-E :)<br><br><br><br>
+Full explanation and reasons behind various design choices (eg: why 2 wheels and not 4) are explained below. <br>
+P.s. I named it after Wall-E :)<br><br>
 
 https://user-images.githubusercontent.com/24956953/218301083-9bb2f885-cff9-4507-8e3a-912ace56658b.mp4
 
